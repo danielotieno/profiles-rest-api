@@ -1,12 +1,33 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import BaseUserManager
+
+# User Manager Class
+
+
+class UserProfileManager(BaseUserManager):
+    """Helps Django works with our custom user model."""
+
+    def create_user(self, email, name, password=None):
+        """Creates a new user profile object."""
+
+        if not email:
+            raise ValueError('Users must have an email address.')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name)
+
+        user.set_password(password)
+
+        user.save(using=self._db)
+
+        return user
+
 
 # User Model
-
-
 class UserProfile(AbstractBaseUser, PermissionsMixin):
-    """ Represent User Profile inside our system """
+    """Represent User Profile inside our system."""
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -19,13 +40,13 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
-        """ Use to get users fullname """
+        """Use to get users fullname."""
         return self.name
 
     def get_short_name(self):
-        """ Use to get users short name """
+        """Use to get users short name."""
         return self.name
 
     def __str__(self):
-        """ Django uses this when it converts an object to a string """
+        """Django uses this when it converts an object to a string."""
         self.email
