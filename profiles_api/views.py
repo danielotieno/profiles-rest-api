@@ -63,7 +63,7 @@ class HelloViewSet(viewsets.ViewSet):
         """Return a hello message."""
 
         a_viewset = [
-            'Uses actions (list, create, retrive, update, partial_update, destroy)',
+            'Uses actions (list, create, retrieve, update, partial_update, destroy)',
             'Automatically maps to URL using Routers',
             'Provides more functionality with lesser code'
         ]
@@ -84,7 +84,12 @@ class HelloViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrive(self, request, pk=None):
+    def retrieve(self, request, pk=None):
         """Handles updating objects."""
 
         return Response({'method': 'retrive'})
+
+    def destroy(self, request, pk=None):
+        """Delete an object."""
+
+        return Response({'method': 'destroy'})
