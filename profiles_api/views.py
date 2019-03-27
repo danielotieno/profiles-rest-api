@@ -122,7 +122,7 @@ class LoginViewSet(viewsets.ViewSet):
         return ObtainAuthToken().post(request)
 
 
-class ProfileFeedViewSet(viewsets.ModelViewSet):
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
     """Handles Creating,reading and updating profile feed items."""
 
     serializer_class = serializers.ProfileFeedItemSerializer
