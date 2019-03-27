@@ -63,9 +63,23 @@ class HelloViewSet(viewsets.ViewSet):
         """Return a hello message."""
 
         a_viewset = [
-            'Uses actions (list, create, retrive, update, partial_update)',
+            'Uses actions (list, create, retrive, update, partial_update, destroy)',
             'Automatically maps to URL using Routers',
             'Provides more functionality with lesser code'
         ]
 
         return Response({'message': 'Hello!', 'a_viewset': a_viewset})
+
+    def create(self, request):
+        """Create hello message with a name."""
+
+        serializer = serializers.HelloSerializer(data=request.data)
+
+        if serializer.is_valid():
+            name = serializer.data.get('name')
+            message = f'Hello {name}'
+
+            return Response({'message': message})
+
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
