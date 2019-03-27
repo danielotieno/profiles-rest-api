@@ -156,7 +156,7 @@ dmypy.json
 /vscode
 vscode
 .vscode/
-/.vscode
+.vscode
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
