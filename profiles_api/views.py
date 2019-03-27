@@ -83,3 +83,8 @@ class HelloViewSet(viewsets.ViewSet):
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrive(self, request, pk=None):
+        """Handles updating objects."""
+
+        return Response({'method': 'retrive'})
